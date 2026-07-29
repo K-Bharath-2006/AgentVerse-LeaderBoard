@@ -1,0 +1,8 @@
+src/controllers/jury.controller.ts(77,7): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Type 'UserRole' is not assignable to type '"alumni_jury" | "faculty_jury" | "industry_jury" | RegExp | undefined'.
+      Type '"admin"' is not assignable to type '"alumni_jury" | "faculty_jury" | "industry_jury" | RegExp | undefined'.
+src/controllers/public.controller.ts(40,46): error TS2339: Property 'department' does not exist on type 'Document<unknown, {}, IAgent, {}, DefaultSchemaOptions> & IAgent & Required<{ _id: ObjectId; }> & { __v: number; } & { ...; }'.
+src/controllers/public.controller.ts(51,23): error TS2532: Object is possibly 'undefined'.
+src/controllers/public.controller.ts(52,19): error TS2532: Object is possibly 'undefined'.
+src/middlewares/validate.middleware.ts(2,10): error TS2724: '"zod"' has no exported member named 'AnyZodObject'. Did you mean 'ZodObject'?

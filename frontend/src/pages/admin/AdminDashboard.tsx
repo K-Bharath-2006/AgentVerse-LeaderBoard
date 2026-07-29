@@ -940,11 +940,11 @@ export default function AdminDashboard() {
                 <div className="border-t border-slate-100 pt-6 space-y-4">
                   <div className="flex justify-between items-center text-xs font-semibold text-slate-600">
                     <span>Current Event Status:</span>
-                    <span className={`font-black uppercase px-2.5 py-1 rounded-full text-[10px] tracking-wider ${eventConfig.isStarted ? 'bg-emerald-50 text-emerald-700 border border-emerald-250 animate-pulse' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>
-                      {eventConfig.isStarted ? '🔴 Live / Started' : '⚪ Not Started'}
+                    <span className={`font-black uppercase px-2.5 py-1 rounded-full text-[10px] tracking-wider ${eventConfig?.isStarted ? 'bg-emerald-50 text-emerald-700 border border-emerald-250 animate-pulse' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>
+                      {eventConfig?.isStarted ? '🔴 Live / Started' : '⚪ Not Started'}
                     </span>
                   </div>
-                  {eventConfig.isStarted && (
+                  {eventConfig?.isStarted && (
                     <button 
                       onClick={handleResetEvent}
                       className="w-full bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-700 py-3.5 text-xs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer border border-rose-200"

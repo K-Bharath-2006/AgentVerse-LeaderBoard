@@ -33,7 +33,7 @@ async function runTests() {
   
   // 1. Admin Login
   console.log('\n1. Admin Login');
-  let res = await request('/auth/login', 'POST', { email: 'admin@sece.ac.in', password: 'admin123' });
+  let res = await request('/auth/login', 'POST', { email: 'admin@sece.ac.in', password: 'sece@2026' });
   console.log(res.status, res.data);
   const adminToken = res.token;
 
@@ -41,6 +41,31 @@ async function runTests() {
   res = await request('/admin/event/start', 'POST', {}, adminToken);
   console.log(res.status, res.data);
   
+  // 1.8 Register Students
+  console.log('\n1.8 Register Student 1');
+  res = await request('/auth/register', 'POST', {
+    name: 'Student One',
+    email: 'student1@sece.ac.in',
+    password: 'student123',
+    rollNumber: '21AD001',
+    year: '4',
+    department: 'AIDS',
+    section: 'A'
+  });
+  console.log(res.status, res.data);
+
+  console.log('\n1.9 Register Student 2');
+  res = await request('/auth/register', 'POST', {
+    name: 'Student Two',
+    email: 'student2@sece.ac.in',
+    password: 'student123',
+    rollNumber: '21AD002',
+    year: '4',
+    department: 'AIDS',
+    section: 'A'
+  });
+  console.log(res.status, res.data);
+
   // 2. Student Login
   console.log('\n2. Student 1 Login');
   res = await request('/auth/login', 'POST', { email: 'student1@sece.ac.in', password: 'student123' });
@@ -61,18 +86,20 @@ async function runTests() {
   console.log(res.status, res.data);
   
   // 5. Add Member (Student 2 joining)
-  const teamCode = res.data?.joinCode; // fix field name
+  const teamCode = res.data?.joinCode;
   
   if (teamCode) {
     console.log('\n5. Join Team', teamCode);
     res = await request('/teams/join', 'POST', {
-      joinCode: teamCode // it might be joinCode instead of teamCode in request body? Let's check team.validator.ts. It's joinCode.
+      joinCode: teamCode
     }, student2Token);
     console.log(res.status, res.data);
   } else {
     console.log('No team code returned', res.data);
   }
 
+  // 6. Submit Agent
+  console.log('\n6. Submit Agent');
   res = await request('/agents', 'POST', {
     agentName: 'Test Agent',
     theme: 'Autonomous AI',
@@ -95,9 +122,9 @@ async function runTests() {
     res = await request(`/admin/agents/${agentId}/status`, 'PUT', { status: 'approved' }, adminToken);
     console.log(res.status, res.data);
     
-    // 8. Jury Login & Score
+    // 8. Jury Login & Score (using seeded Faculty Jury FJ2327_AIDS_A assigned to AIDS Sec A Year 4)
     console.log('\n8. Jury Login');
-    res = await request('/auth/login', 'POST', { juryId: 'FAC100', password: 'jury123' });
+    res = await request('/auth/login', 'POST', { juryId: 'FJ2327_AIDS_A', password: 'sece@2026' });
     console.log(res.status, res.data);
     const juryToken = res.token;
     

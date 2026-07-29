@@ -755,8 +755,8 @@ export default function StudentDashboard() {
               {/* Required Links */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'var(--text-secondary)' }}>Live Demo URL *</label>
-                  <input required type="url" value={agentForm.liveDemoUrl} onChange={e => setAgentForm({...agentForm, liveDemoUrl: e.target.value})} placeholder="https://..." className="input-dark" />
+                  <label className="block text-[11px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'var(--text-secondary)' }}>Live Demo URL <span style={{ color: 'var(--text-muted)', textTransform: 'none', fontSize: '9px' }}>(Optional)</span></label>
+                  <input type="url" value={agentForm.liveDemoUrl} onChange={e => setAgentForm({...agentForm, liveDemoUrl: e.target.value})} placeholder="https://..." className="input-dark" />
                 </div>
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'var(--text-secondary)' }}>Video Demo URL *</label>

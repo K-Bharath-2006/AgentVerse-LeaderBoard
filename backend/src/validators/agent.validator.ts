@@ -24,7 +24,7 @@ export const submitAgentSchema = z.object({
     framework: z.enum(FRAMEWORKS),
     techStack: z.array(z.string()).min(1, 'At least one tech stack item is required'),
     githubUrl: z.string().url('Must be a valid GitHub URL'),
-    liveDemoUrl: z.string().url('Must be a valid Live Demo URL'),
+    liveDemoUrl: z.string().url('Must be a valid Live Demo URL').optional().or(z.literal('')),
     videoDemoUrl: z.string().url('Must be a valid Video Demo URL'),
     documentationUrl: z.string().url('Must be a valid Documentation URL'),
     shortDescription: z.string()

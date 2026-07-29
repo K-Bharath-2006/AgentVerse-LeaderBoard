@@ -26,7 +26,7 @@ export const getJuryTeams = async (req: Request, res: Response, next: NextFuncti
     // Check if current jury has already scored these teams
     const juryId = req.user!._id;
     const scores = await JuryScore.find({ juryId });
-    const scoredTeamIds = scores.map(s => s.teamId.toString());
+    const scoredTeamIds = scores.map(s => s.teamId?.toString());
 
     // Fetch all agents for these teams
     const teamIds = teams.map(t => t._id);
@@ -34,8 +34,8 @@ export const getJuryTeams = async (req: Request, res: Response, next: NextFuncti
 
     const teamsWithStatus = teams.map(team => {
       const hasScored = scoredTeamIds.includes(team._id.toString());
-      const score = scores.find(s => s.teamId.toString() === team._id.toString());
-      const teamAgents = agents.filter(a => a.teamId.toString() === team._id.toString());
+      const score = scores.find(s => s.teamId?.toString() === team._id.toString());
+      const teamAgents = agents.filter(a => a.teamId?.toString() === team._id.toString());
 
       return {
         ...team.toObject(),
@@ -129,6 +129,8 @@ export const submitTeamScore = async (req: Request, res: Response, next: NextFun
       score,
       remarks,
     });
+
+    io.emit('leaderboard:update');
 
     res.status(201).json(juryScore);
   } catch (error) {

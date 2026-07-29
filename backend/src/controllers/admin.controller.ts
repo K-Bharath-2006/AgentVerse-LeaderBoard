@@ -119,6 +119,8 @@ export const moveStudent = async (req: Request, res: Response, next: NextFunctio
       if (oldTeam) {
         if (oldTeam.members.length === 0) {
           await Team.findByIdAndDelete(oldTeamId);
+          await Agent.deleteMany({ teamId: oldTeamId });
+          await JuryScore.deleteMany({ teamId: oldTeamId });
         } else if (oldTeam.leaderId && oldTeam.leaderId.toString() === studentId.toString()) {
           oldTeam.leaderId = oldTeam.members[0]!;
           await oldTeam.save();
@@ -164,6 +166,8 @@ export const removeStudentFromTeam = async (req: Request, res: Response, next: N
     if (team) {
       if (team.members.length === 0) {
         await Team.findByIdAndDelete(teamId);
+        await Agent.deleteMany({ teamId });
+        await JuryScore.deleteMany({ teamId });
       } else if (team.leaderId.toString() === studentId.toString()) {
         team.leaderId = team.members[0]!;
         await team.save();
@@ -210,7 +214,7 @@ export const getTeamsAdmin = async (req: Request, res: Response, next: NextFunct
     const agents = await Agent.find({ teamId: { $in: teamIds } });
 
     const teamsWithCounts = teams.map(team => {
-      const teamAgents = agents.filter(a => a.teamId.toString() === team._id.toString());
+      const teamAgents = agents.filter(a => a.teamId?.toString() === team._id.toString());
       return {
         ...team.toObject(),
         submittedCount: teamAgents.length,
@@ -453,7 +457,7 @@ export const getOverallReportAdmin = async (req: Request, res: Response, next: N
     });
 
     agents.forEach(a => {
-      const team = teams.find(t => t._id.toString() === a.teamId.toString());
+      const team = teams.find(t => t._id.toString() === a.teamId?.toString());
       const dept = team?.department || 'Unknown';
       if (!deptMap[dept]) {
         deptMap[dept] = { studentCount: 0, teamCount: 0, approvedAgents: 0 };
@@ -576,7 +580,7 @@ export const exportTeamReport = async (req: Request, res: Response, next: NextFu
     ];
 
     teams.forEach((team, index) => {
-      const teamAgents = agents.filter(a => a.teamId.toString() === team._id.toString());
+      const teamAgents = agents.filter(a => a.teamId?.toString() === team._id.toString());
       const approved = teamAgents.filter(a => a.status === 'approved').length;
       const rejected = teamAgents.filter(a => a.status === 'rejected').length;
       const memberNames = team.members.filter(Boolean).map((m: any) => `${m.name} (${m.rollNumber})`).join(', ');
@@ -628,7 +632,7 @@ export const exportOverallReport = async (req: Request, res: Response, next: Nex
     });
 
     agents.forEach(a => {
-      const team = teams.find(t => t._id.toString() === a.teamId.toString());
+      const team = teams.find(t => t._id.toString() === a.teamId?.toString());
       const dept = team?.department || 'Unknown';
       if (!deptMap[dept]) {
         deptMap[dept] = { studentCount: 0, teamCount: 0, approvedAgents: 0 };

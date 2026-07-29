@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
 import { Mail, Lock, Key, AlertCircle, ArrowLeft } from 'lucide-react';
+import Footer from '../../components/common/Footer';
 
 export default function Login() {
   const [identifier, setIdentifier] = useState(''); 
@@ -30,14 +31,15 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden" style={{ background: 'var(--bg-base)' }}>
+    <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: 'var(--bg-base)' }}>
       {/* Animated Background bubbles */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
         <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-5" style={{ background: 'radial-gradient(circle, var(--primary), transparent 70%)' }}></div>
         <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full opacity-5" style={{ background: 'radial-gradient(circle, var(--accent), transparent 70%)' }}></div>
       </div>
 
-      <div className="w-full max-w-md space-y-4 relative z-10">
+      <div className="flex-grow flex flex-col justify-center items-center px-6 py-12 relative z-10 w-full">
+        <div className="w-full max-w-md space-y-4">
         {/* Back Button */}
         <Link 
           to="/" 
@@ -149,6 +151,8 @@ export default function Login() {
           </form>
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }

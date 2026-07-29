@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
 import { Mail, Lock, User, Hash, BookOpen, Layers, AlertCircle, ArrowLeft } from 'lucide-react';
 import CustomSelect from '../../components/ui/Select';
+import Footer from '../../components/common/Footer';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -57,14 +58,15 @@ export default function Register() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-6 py-12 relative overflow-hidden" style={{ background: 'var(--bg-base)' }}>
+    <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: 'var(--bg-base)' }}>
       {/* Animated Background bubbles */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
         <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-5" style={{ background: 'radial-gradient(circle, var(--primary), transparent 70%)' }}></div>
         <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full opacity-5" style={{ background: 'radial-gradient(circle, var(--accent), transparent 70%)' }}></div>
       </div>
 
-      <div className="w-full max-w-lg space-y-4 relative z-10">
+      <div className="flex-grow flex flex-col justify-center items-center px-6 py-12 relative z-10 w-full">
+        <div className="w-full max-w-lg space-y-4">
         {/* Back Button */}
         <Link 
           to="/" 
@@ -97,7 +99,7 @@ export default function Register() {
               {fields.map(field => (
                 <div key={field.name}>
                   <label className="block text-[11px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'var(--text-muted)' }}>
-                    {field.label}
+                    {field.label} {field.name === 'section' && !['CSE', 'AIDS', 'AIML', 'ECE'].includes(formData.department) && '(Optional)'}
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none" style={{ color: 'var(--text-muted)' }}>
@@ -116,7 +118,7 @@ export default function Register() {
                       <input
                         name={field.name}
                         type={field.type || 'text'}
-                        required
+                        required={field.name === 'section' ? ['CSE', 'AIDS', 'AIML', 'ECE'].includes(formData.department) : true}
                         className="input-dark input-with-icon"
                         placeholder={field.placeholder}
                         value={(formData as any)[field.name]}
@@ -157,6 +159,8 @@ export default function Register() {
           </form>
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }

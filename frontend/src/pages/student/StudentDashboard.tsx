@@ -4,6 +4,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import api from '../../api/axios';
 import { Team, Agent } from '../../types';
 import CountdownCard from '../../components/common/CountdownCard';
+import Footer from '../../components/common/Footer';
 import { 
   Users, Plus, Trash2, Edit2, Code,
   ExternalLink, FileText, Video, Award, LogOut,
@@ -253,7 +254,7 @@ export default function StudentDashboard() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-base)' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg-base)' }}>
       {/* ── Top Navigation ── */}
       <nav className="navbar px-6 py-3 flex justify-between items-center">
         <div className="flex items-center gap-3">
@@ -288,7 +289,7 @@ export default function StudentDashboard() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 items-start">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 items-start flex-grow w-full">
         
         {/* ── Left Sidebar ── */}
         <div className="space-y-4">
@@ -819,6 +820,7 @@ export default function StudentDashboard() {
           setDeleteAgentId(null);
         }}
       />
+      <Footer />
     </div>
   );
 }

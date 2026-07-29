@@ -10,17 +10,17 @@ const rawJuries = [
   { batch: '23-27', year: '4', dep: 'AIDS', sec: 'C' },
   { batch: '23-27', year: '4', dep: 'AIML', sec: 'A' },
   { batch: '23-27', year: '4', dep: 'AIML', sec: 'B' },
-  { batch: '23-27', year: '4', dep: 'CCE', sec: '' },
-  { batch: '23-27', year: '4', dep: 'CSBS', sec: '' },
+  { batch: '23-27', year: '4', dep: 'CCE', sec: 'A' },
+  { batch: '23-27', year: '4', dep: 'CSBS', sec: 'A' },
   { batch: '23-27', year: '4', dep: 'CSE', sec: 'A' },
   { batch: '23-27', year: '4', dep: 'CSE', sec: 'B' },
   { batch: '23-27', year: '4', dep: 'CSE', sec: 'C' },
   { batch: '23-27', year: '4', dep: 'ECE', sec: 'A' },
   { batch: '23-27', year: '4', dep: 'ECE', sec: 'B' },
   { batch: '23-27', year: '4', dep: 'ECE', sec: 'C' },
-  { batch: '23-27', year: '4', dep: 'EEE', sec: '' },
-  { batch: '23-27', year: '4', dep: 'IT', sec: '' },
-  { batch: '23-27', year: '4', dep: 'MECH', sec: '' },
+  { batch: '23-27', year: '4', dep: 'EEE', sec: 'A' },
+  { batch: '23-27', year: '4', dep: 'IT', sec: 'A' },
+  { batch: '23-27', year: '4', dep: 'MECH', sec: 'A' },
 
   // Batch 24-28 (Year 3 / 3rd Year)
   { batch: '24-28', year: '3', dep: 'AIDS', sec: 'A' },
@@ -29,8 +29,8 @@ const rawJuries = [
   { batch: '24-28', year: '3', dep: 'AIDS', sec: 'D' },
   { batch: '24-28', year: '3', dep: 'AIML', sec: 'A' },
   { batch: '24-28', year: '3', dep: 'AIML', sec: 'B' },
-  { batch: '24-28', year: '3', dep: 'CCE', sec: '' },
-  { batch: '24-28', year: '3', dep: 'CSBS', sec: '' },
+  { batch: '24-28', year: '3', dep: 'CCE', sec: 'A' },
+  { batch: '24-28', year: '3', dep: 'CSBS', sec: 'A' },
   { batch: '24-28', year: '3', dep: 'CSE', sec: 'A' },
   { batch: '24-28', year: '3', dep: 'CSE', sec: 'B' },
   { batch: '24-28', year: '3', dep: 'CSE', sec: 'C' },
@@ -38,9 +38,9 @@ const rawJuries = [
   { batch: '24-28', year: '3', dep: 'ECE', sec: 'A' },
   { batch: '24-28', year: '3', dep: 'ECE', sec: 'B' },
   { batch: '24-28', year: '3', dep: 'ECE', sec: 'C' },
-  { batch: '24-28', year: '3', dep: 'EEE', sec: '' },
-  { batch: '24-28', year: '3', dep: 'IT', sec: '' },
-  { batch: '24-28', year: '3', dep: 'MECH', sec: '' }
+  { batch: '24-28', year: '3', dep: 'EEE', sec: 'A' },
+  { batch: '24-28', year: '3', dep: 'IT', sec: 'A' },
+  { batch: '24-28', year: '3', dep: 'MECH', sec: 'A' }
 ];
 
 const seedDatabase = async () => {

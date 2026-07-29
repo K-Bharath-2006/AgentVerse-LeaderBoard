@@ -4,6 +4,7 @@ import { useSocket } from '../../hooks/useSocket';
 import api from '../../api/axios';
 import { Trophy, Filter, RefreshCw, Medal, Crown } from 'lucide-react';
 import CountdownCard from '../../components/common/CountdownCard';
+import Footer from '../../components/common/Footer';
 import CustomSelect from '../../components/ui/Select';
 
 interface LeaderboardEntry {
@@ -70,7 +71,7 @@ export default function Leaderboard() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-base)' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg-base)' }}>
       {/* Navbar */}
       <nav className="navbar px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
@@ -87,7 +88,7 @@ export default function Leaderboard() {
         </div>
       </nav>
 
-      <main className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 items-start">
+      <main className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 items-start flex-grow w-full">
 
         {/* Main Table */}
         <div className="space-y-5">
@@ -224,6 +225,7 @@ export default function Leaderboard() {
           <CountdownCard />
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

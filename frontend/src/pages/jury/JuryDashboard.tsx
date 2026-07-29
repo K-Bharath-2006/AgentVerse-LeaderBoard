@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
 import api from '../../api/axios';
+import Footer from '../../components/common/Footer';
 import { 
   Search, BookOpen, Lock, Star, LogOut, 
   ChevronLeft, Users, CheckCircle, XCircle, Clock, Award
@@ -439,6 +440,7 @@ export default function JuryDashboard() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

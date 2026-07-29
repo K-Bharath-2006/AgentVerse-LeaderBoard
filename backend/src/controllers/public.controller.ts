@@ -124,7 +124,7 @@ export const getLeaderboard = async (req: Request, res: Response, next: NextFunc
     const agents = await Agent.find(targetAgentQuery);
 
     const leaderboard = teams.map(team => {
-      const teamScores = scores.filter(s => s.teamId.toString() === team._id.toString());
+      const teamScores = scores.filter(s => s.teamId?.toString() === team._id.toString());
       
       let avgScore = 0;
       if (teamScores.length > 0) {
@@ -132,7 +132,7 @@ export const getLeaderboard = async (req: Request, res: Response, next: NextFunc
         avgScore = total / teamScores.length;
       }
 
-      const teamAgents = agents.filter(a => a.teamId.toString() === team._id.toString());
+      const teamAgents = agents.filter(a => a.teamId?.toString() === team._id.toString());
 
       return {
         id: team._id,

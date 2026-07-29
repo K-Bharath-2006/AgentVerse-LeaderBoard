@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import crypto from 'crypto';
 import { Team } from '../models/Team.model';
 import { User } from '../models/User.model';
+import { io } from '../server';
 
 export const createTeam = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -43,6 +44,8 @@ export const createTeam = async (req: Request, res: Response, next: NextFunction
 
     user.teamId = team._id as any;
     await user.save();
+
+    io.emit('dashboard:update');
 
     res.status(201).json(team);
   } catch (error) {
@@ -86,6 +89,8 @@ export const joinTeam = async (req: Request, res: Response, next: NextFunction) 
 
     user.teamId = team._id as any;
     await user.save();
+
+    io.emit('dashboard:update');
 
     res.status(200).json(team);
   } catch (error) {

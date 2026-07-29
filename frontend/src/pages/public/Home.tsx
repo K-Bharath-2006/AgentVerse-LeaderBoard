@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSocket } from '../../hooks/useSocket';
 import api from '../../api/axios';
 import CountdownCard from '../../components/common/CountdownCard';
+import Footer from '../../components/common/Footer';
 import { Sparkles, Trophy, ArrowRight, Flame, Users, Bot, Activity } from 'lucide-react';
 
 export default function Home() {
@@ -46,7 +47,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: 'var(--bg-base)' }}>
+    <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: 'var(--bg-base)' }}>
       {/* Animated Background */}
       <div className="animated-bg">
         <div className="bg-bubble-1"></div>
@@ -73,7 +74,7 @@ export default function Home() {
       </nav>
 
       {/* ── Hero Container ── */}
-      <main className="max-w-6xl mx-auto px-6 py-12 md:py-16 relative z-10">
+      <main className="max-w-6xl mx-auto px-6 py-12 md:py-16 relative z-10 flex-1 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
           
           <div className="space-y-8 animate-in">
@@ -94,7 +95,7 @@ export default function Home() {
                 </h1>
 
                 <p className="mt-6 text-base md:text-lg leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>
-                  The ultimate 36-hour hackathon where college students team up to design, build, and benchmark <span className="font-semibold" style={{ color: 'var(--primary)' }}>autonomous AI agents</span>.
+                  The ultimate hackathon where college students team up to design, build, and benchmark <span className="font-semibold" style={{ color: 'var(--primary)' }}>autonomous AI agents</span>.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -192,6 +193,7 @@ export default function Home() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

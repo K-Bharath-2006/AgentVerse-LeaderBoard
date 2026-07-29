@@ -4,6 +4,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import api from '../../api/axios';
 import CustomSelect from '../../components/ui/Select';
 import ConfirmationModal from '../../components/ui/Modal';
+import Footer from '../../components/common/Footer';
 import { 
   Users, Layers, Calendar, BarChart3, 
   Download, Search, KeyRound, Ban, LogOut, Clock
@@ -974,6 +975,7 @@ export default function AdminDashboard() {
         onConfirm={modalConfig.onConfirm}
         onCancel={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
       />
+      <Footer />
     </div>
   );
 }

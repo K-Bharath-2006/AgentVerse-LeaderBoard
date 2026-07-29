@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSocket } from '../../hooks/useSocket';
 import api from '../../api/axios';
 import CountdownCard from '../../components/common/CountdownCard';
+import Footer from '../../components/common/Footer';
 import { 
   Trophy, Users, BookOpen, Clock, 
   Award, RefreshCw, Layers, ShieldCheck, CheckCircle2
@@ -30,7 +31,7 @@ interface Activity {
 }
 
 export default function Dashboard() {
-  const { isConnected, socket } = useSocket();
+  const { socket } = useSocket();
   const [stats, setStats] = useState({
     approvedAgents: 0,
     departments: 0,
@@ -106,7 +107,7 @@ export default function Dashboard() {
   const strokeDashoffset = circumference - (ratioPercent / 100) * circumference;
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: 'var(--bg-base)' }}>
+    <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: 'var(--bg-base)' }}>
       {/* Animated Background */}
       <div className="animated-bg">
         <div className="bg-bubble-1"></div>
@@ -133,7 +134,7 @@ export default function Dashboard() {
       </nav>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-6 py-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 py-8 relative z-10 flex-grow w-full">
         
         {/* Title / Action Panel */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
@@ -406,11 +407,13 @@ export default function Dashboard() {
 
       </div>
       
-      {/* Connection status */}
+      {/* Connection status 
       <div className="fixed bottom-4 right-4 flex items-center space-x-2 text-xs bg-white/95 backdrop-blur px-3.5 py-2 rounded-full border border-slate-200 shadow-premium">
         <div className={`w-2.5 h-2.5 rounded-full ${isConnected ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]' : 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]'}`}></div>
         <span className="text-slate-600 font-semibold">{isConnected ? 'Live updates active' : 'Connecting to socket...'}</span>
       </div>
+      */}
+      <Footer />
     </div>
   );
 }

@@ -333,17 +333,17 @@ export default function AdminDashboard() {
 
   // Export Downloads
   const handleExportStudents = () => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://172.16.2.171:5173/api';
     window.open(`${apiUrl}/admin/reports/export/students?search=${studentSearch}&department=${studentDept}&section=${studentSec}`, '_blank');
   };
 
   const handleExportTeams = () => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://172.16.2.171:5173/api';
     window.open(`${apiUrl}/admin/reports/export/teams?search=${teamSearch}&department=${teamDept}&section=${teamSec}`, '_blank');
   };
 
   const handleExportOverall = () => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://172.16.2.171:5173/api';
     window.open(`${apiUrl}/admin/reports/export/overall`, '_blank');
   };
 

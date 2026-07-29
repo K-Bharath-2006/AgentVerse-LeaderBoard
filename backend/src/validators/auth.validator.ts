@@ -10,7 +10,7 @@ export const registerSchema = z.object({
     rollNumber: z.string().min(3, 'Roll number is required'),
     year: z.string().min(1, 'Year is required'),
     department: z.string().min(1, 'Department is required'),
-    section: z.string().optional().or(z.literal('')),
+    section: z.union([z.literal('A'), z.literal('B'), z.literal('C'), z.literal('D')], { error: 'Section must be A, B, C, or D' }),
   }),
 });
 

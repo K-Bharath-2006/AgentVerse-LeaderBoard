@@ -54,7 +54,14 @@ export default function Register() {
       isSelect: true,
       options: ['CSE', 'AIDS', 'AIML', 'IT', 'CYBER', 'CCE', 'CSBS', 'ECE', 'EEE', 'MECH']
     },
-    { label: 'Section', icon: <Layers className="h-4 w-4" />, name: 'section', placeholder: 'A, B, C, D' },
+    { 
+      label: 'Section', 
+      icon: <Layers className="h-4 w-4" />, 
+      name: 'section', 
+      placeholder: 'Select Section',
+      isSelect: true,
+      options: ['A', 'B', 'C', 'D']
+    },
   ];
 
   return (
@@ -99,7 +106,7 @@ export default function Register() {
               {fields.map(field => (
                 <div key={field.name}>
                   <label className="block text-[11px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'var(--text-muted)' }}>
-                    {field.label} {field.name === 'section' && !['CSE', 'AIDS', 'AIML', 'ECE'].includes(formData.department) && '(Optional)'}
+                    {field.label}
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none" style={{ color: 'var(--text-muted)' }}>

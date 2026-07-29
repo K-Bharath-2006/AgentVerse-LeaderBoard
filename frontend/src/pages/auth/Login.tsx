@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
-import { Mail, Lock, Key, Zap, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, Key, AlertCircle, ArrowLeft } from 'lucide-react';
 
 export default function Login() {
   const [identifier, setIdentifier] = useState(''); 
@@ -49,10 +49,8 @@ export default function Login() {
 
         <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-premium space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-hover))' }}>
-              <Zap className="w-5 h-5 text-white animate-pulse" />
-            </div>
-            <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>AgentVerse 2026</span>
+            <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
+            <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar Market Place</span>
           </div>
 
           <div>
@@ -142,7 +140,7 @@ export default function Login() {
 
             <div className="text-center pt-2">
               <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-                New to AgentVerse?{' '}
+                New to Sri Eshwar Market Place?{' '}
                 <Link to="/register" className="font-black hover:underline" style={{ color: '#818cf8' }}>
                   Create account
                 </Link>

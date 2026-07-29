@@ -2,14 +2,15 @@ import { z } from 'zod';
 
 const THEMES = [
   'Smart Campus',
-  'Trust & Security',
-  'Digital Safety',
-  'Decision Intelligence',
-  'Autonomous AI',
-  'Industry 4.0',
-  'Sustainable Energy',
-  'Connected Systems',
-  'Inclusive Society'
+  'CyberSecurity',
+  'Data intelligence',
+  'AI productivity',
+  'Smart manufacturing',
+  'Smart energy',
+  'Smart mobility',
+  'Digital health',
+  'Social impact',
+  'Digital governance'
 ] as const;
 const LLMS = ['OpenAI', 'Claude', 'Gemini', 'Llama', 'DeepSeek', 'Other'] as const;
 const FRAMEWORKS = ['LangChain', 'CrewAI', 'AutoGen', 'Vercel AI SDK', 'Custom', 'None'] as const;

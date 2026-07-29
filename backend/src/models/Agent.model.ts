@@ -16,7 +16,7 @@ export interface IAgent extends Document {
   liveDemoUrl?: string;
   videoDemoUrl?: string;
   documentationUrl?: string;
-  shortDescription: string;
+  shortDescription?: string;
   status: AgentStatus;
   createdAt: Date;
   updatedAt: Date;
@@ -37,7 +37,7 @@ const agentSchema = new Schema<IAgent>(
     liveDemoUrl: { type: String },
     videoDemoUrl: { type: String },
     documentationUrl: { type: String },
-    shortDescription: { type: String, required: true },
+    shortDescription: { type: String },
     status: { 
       type: String, 
       enum: ['submitted', 'approved', 'rejected'], 

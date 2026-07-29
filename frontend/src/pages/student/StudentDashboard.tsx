@@ -5,7 +5,7 @@ import api from '../../api/axios';
 import { Team, Agent } from '../../types';
 import CountdownCard from '../../components/common/CountdownCard';
 import { 
-  Users, Plus, Trash2, Edit2, Code, Zap,
+  Users, Plus, Trash2, Edit2, Code,
   ExternalLink, FileText, Video, Award, LogOut,
   Copy, Check, ChevronRight, Bot, Sparkles, Hash, Github, X
 } from 'lucide-react';
@@ -257,11 +257,9 @@ export default function StudentDashboard() {
       {/* ── Top Navigation ── */}
       <nav className="navbar px-6 py-3 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white font-black text-base" style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-hover))' }}>
-            <Zap className="w-5 h-5 text-white" />
-          </div>
+          <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
           <div>
-            <p className="font-black text-sm" style={{ color: 'var(--text-primary)' }}>AgentVerse 2026</p>
+            <p className="font-black text-sm" style={{ color: 'var(--text-primary)' }}>Sri Eshwar Market Place</p>
             <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Student Portal</p>
           </div>
         </div>
@@ -697,14 +695,15 @@ export default function StudentDashboard() {
                     onChange={val => setAgentForm({...agentForm, theme: val})}
                     options={[
                       'Smart Campus',
-                      'Trust & Security',
-                      'Digital Safety',
-                      'Decision Intelligence',
-                      'Autonomous AI',
-                      'Industry 4.0',
-                      'Sustainable Energy',
-                      'Connected Systems',
-                      'Inclusive Society'
+                      'CyberSecurity',
+                      'Data intelligence',
+                      'AI productivity',
+                      'Smart manufacturing',
+                      'Smart energy',
+                      'Smart mobility',
+                      'Digital health',
+                      'Social impact',
+                      'Digital governance'
                     ]}
                   />
                 </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSocket } from '../../hooks/useSocket';
 import api from '../../api/axios';
 import CountdownCard from '../../components/common/CountdownCard';
-import { Sparkles, Trophy, ArrowRight, Flame, Users, Bot, Activity, Zap } from 'lucide-react';
+import { Sparkles, Trophy, ArrowRight, Flame, Users, Bot, Activity } from 'lucide-react';
 
 export default function Home() {
   const { socket } = useSocket();
@@ -57,10 +57,8 @@ export default function Home() {
       {/* ── Navbar ── */}
       <nav className="navbar px-6 py-4 flex justify-between items-center relative z-10">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-hover))' }}>
-            <Zap className="w-5 h-5 text-white animate-pulse" />
-          </div>
-          <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>AgentVerse</span>
+          <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
+          <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar Market Place</span>
         </div>
         <div className="flex items-center gap-6">
           <Link to="/" className="text-sm font-semibold transition-colors hover:text-[var(--primary)]" style={{ color: 'var(--text-secondary)' }}>Home</Link>
@@ -92,7 +90,7 @@ export default function Home() {
 
                 <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Space Grotesk', sans-serif" }}>
                   Sri Eshwar<br />
-                  <span className="gradient-text-blue">AgentVerse 2026</span>
+                  <span className="gradient-text-blue">Market Place</span>
                 </h1>
 
                 <p className="mt-6 text-base md:text-lg leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>

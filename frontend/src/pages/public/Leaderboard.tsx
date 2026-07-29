@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSocket } from '../../hooks/useSocket';
 import api from '../../api/axios';
-import { Trophy, Filter, RefreshCw, Zap, Medal, Crown } from 'lucide-react';
+import { Trophy, Filter, RefreshCw, Medal, Crown } from 'lucide-react';
 import CountdownCard from '../../components/common/CountdownCard';
 import CustomSelect from '../../components/ui/Select';
 
@@ -21,9 +21,22 @@ export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
   const [deptFilter, setDeptFilter] = useState('');
   const [secFilter, setSecFilter] = useState('');
+  const [themeFilter, setThemeFilter] = useState('');
 
   const departments = ['CSE', 'AIDS', 'AIML', 'IT', 'CYBER', 'CCE', 'CSBS', 'ECE', 'EEE', 'MECH'];
   const sections = ['A', 'B', 'C', 'D'];
+  const themes = [
+    'Smart Campus',
+    'CyberSecurity',
+    'Data intelligence',
+    'AI productivity',
+    'Smart manufacturing',
+    'Smart energy',
+    'Smart mobility',
+    'Digital health',
+    'Social impact',
+    'Digital governance'
+  ];
 
   const fetchLeaderboard = async () => {
     try {
@@ -31,6 +44,7 @@ export default function Leaderboard() {
       let url = '/public/leaderboard?top10=true';
       if (deptFilter) url += `&department=${deptFilter}`;
       if (secFilter) url += `&section=${secFilter}`;
+      if (themeFilter) url += `&theme=${themeFilter}`;
       const { data } = await api.get(url);
       setLeaderboard(data);
     } catch (err) {
@@ -40,7 +54,7 @@ export default function Leaderboard() {
     }
   };
 
-  useEffect(() => { fetchLeaderboard(); }, [deptFilter, secFilter]);
+  useEffect(() => { fetchLeaderboard(); }, [deptFilter, secFilter, themeFilter]);
   useEffect(() => {
     if (socket) {
       socket.on('leaderboard:update', fetchLeaderboard);
@@ -60,10 +74,8 @@ export default function Leaderboard() {
       {/* Navbar */}
       <nav className="navbar px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>
-            <Zap className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl font-black gradient-text">AgentVerse</span>
+          <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
+          <span className="text-xl font-black gradient-text">Sri Eshwar Market Place</span>
         </div>
         <div className="flex items-center gap-6">
           <RouterLink to="/" className="text-sm font-semibold hover:text-indigo-400 transition-colors" style={{ color: 'var(--text-secondary)' }}>Home</RouterLink>
@@ -104,6 +116,12 @@ export default function Leaderboard() {
                 onChange={setSecFilter}
                 options={[{ value: '', label: 'All Sections' }, ...sections.map(s => ({ value: s, label: `Sec ${s}` }))]}
                 className="w-32"
+              />
+              <CustomSelect
+                value={themeFilter}
+                onChange={setThemeFilter}
+                options={[{ value: '', label: 'All Themes' }, ...themes.map(t => ({ value: t, label: t }))]}
+                className="w-40"
               />
               <button onClick={fetchLeaderboard} className="p-2.5 rounded-xl transition-all hover:bg-indigo-150/10 cursor-pointer" style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#818cf8' }}>
                 <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />

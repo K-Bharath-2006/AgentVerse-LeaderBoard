@@ -352,9 +352,12 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col">
       {/* Navbar */}
       <nav className="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-black text-lg">V</div>
-          <span className="text-xl font-black text-slate-900">Admin Control Center</span>
+        <div className="flex items-center space-x-3">
+          <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
+          <div className="flex flex-col">
+            <span className="text-sm font-black text-slate-900">Sri Eshwar Market Place</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Admin Control Center</span>
+          </div>
         </div>
         <div className="flex items-center space-x-4">
           <div className="text-right hidden sm:block">
@@ -450,7 +453,7 @@ export default function AdminDashboard() {
                     </div>
 
                     <h2 className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Space Grotesk', sans-serif" }}>
-                      Sri Eshwar AgentVerse 2026
+                      Sri Eshwar Market Place
                     </h2>
                     
                     <p className="text-xs max-w-lg mx-auto" style={{ color: 'var(--text-secondary)' }}>

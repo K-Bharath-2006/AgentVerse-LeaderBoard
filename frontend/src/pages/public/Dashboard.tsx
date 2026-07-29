@@ -5,11 +5,17 @@ import api from '../../api/axios';
 import CountdownCard from '../../components/common/CountdownCard';
 import { 
   Trophy, Users, BookOpen, Clock, 
-  Award, RefreshCw, Layers, ShieldCheck, CheckCircle2, Zap
+  Award, RefreshCw, Layers, ShieldCheck, CheckCircle2
 } from 'lucide-react';
 
 interface DeptStat {
   department: string;
+  approvedAgents: number;
+  teamsCount: number;
+}
+
+interface ThemeStat {
+  theme: string;
   approvedAgents: number;
   teamsCount: number;
 }
@@ -34,16 +40,18 @@ export default function Dashboard() {
   });
   const [targetAgents, setTargetAgents] = useState(2000);
   const [deptRanking, setDeptRanking] = useState<DeptStat[]>([]);
+  const [themeRanking, setThemeRanking] = useState<ThemeStat[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchDashboardData = async () => {
     try {
-      const [statsRes, eventRes, deptsRes, activityRes] = await Promise.all([
+      const [statsRes, eventRes, deptsRes, themesRes, activityRes] = await Promise.all([
         api.get('/public/dashboard/stats'),
         api.get('/public/event'),
         api.get('/public/dashboard/departments'),
+        api.get('/public/dashboard/themes'),
         api.get('/public/dashboard/activity')
       ]);
       
@@ -52,6 +60,7 @@ export default function Dashboard() {
         setTargetAgents(eventRes.data.targetAgents || 2000);
       }
       setDeptRanking(deptsRes.data);
+      setThemeRanking(themesRes.data);
       setActivities(activityRes.data);
     } catch (err) {
       console.error('Failed to load dashboard data:', err);
@@ -108,10 +117,8 @@ export default function Dashboard() {
       {/* Navbar */}
       <nav className="navbar px-6 py-4 flex justify-between items-center relative z-10">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-hover))' }}>
-            <Zap className="w-5 h-5 text-white animate-pulse" />
-          </div>
-          <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>AgentVerse</span>
+          <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
+          <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar Market Place</span>
         </div>
         <div className="flex items-center gap-6">
           <Link to="/" className="text-sm font-semibold transition-colors hover:text-[var(--primary)]" style={{ color: 'var(--text-secondary)' }}>Home</Link>
@@ -249,51 +256,103 @@ export default function Dashboard() {
             {/* Bottom Row: Rankings Grid (2 cols) & Timeline Banner / Activity Feed */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
               
-              {/* Department Rankings */}
-              <div className="lg:col-span-2 glass-card p-6 space-y-4">
-                <div className="flex items-center space-x-2 border-b pb-3" style={{ borderColor: 'var(--border)' }}>
-                  <Award className="w-5 h-5" style={{ color: 'var(--primary)' }} />
-                  <span className="font-bold text-sm tracking-wide uppercase" style={{ color: 'var(--text-primary)' }}>Department Standings</span>
+              {/* Department & Theme Rankings Container */}
+              <div className="lg:col-span-2 space-y-6">
+                
+                {/* Department Rankings Card */}
+                <div className="glass-card p-6 space-y-4">
+                  <div className="flex items-center space-x-2 border-b pb-3" style={{ borderColor: 'var(--border)' }}>
+                    <Award className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+                    <span className="font-bold text-sm tracking-wide uppercase" style={{ color: 'var(--text-primary)' }}>Department Standings</span>
+                  </div>
+
+                  {deptRanking.length === 0 ? (
+                    <p className="text-sm py-6 text-center italic" style={{ color: 'var(--text-secondary)' }}>No approved agents submitted yet.</p>
+                  ) : (
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse text-left">
+                        <thead>
+                          <tr className="border-b text-[10px] font-black uppercase tracking-wider" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
+                            <th className="py-2 px-3">Rank</th>
+                            <th className="py-2 px-3">Department</th>
+                            <th className="py-2 px-3 text-right">Teams Active</th>
+                            <th className="py-2 px-3 text-right">Agents Approved</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y text-sm font-semibold divide-slate-100" style={{ color: 'var(--text-primary)' }}>
+                          {deptRanking.map((dept, index) => (
+                            <tr key={dept.department} className="hover:bg-slate-50/50 transition-colors">
+                              <td className="py-3 px-3">
+                                <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
+                                  index === 0 
+                                    ? 'bg-amber-100 text-amber-700' 
+                                    : index === 1 
+                                      ? 'bg-slate-200 text-slate-700' 
+                                      : index === 2 
+                                        ? 'bg-amber-50 text-amber-800' 
+                                        : 'bg-slate-100 text-slate-600'
+                                }`}>
+                                  {index + 1}
+                                </span>
+                              </td>
+                              <td className="py-3 px-3">{dept.department}</td>
+                              <td className="py-3 px-3 text-right" style={{ color: 'var(--text-secondary)' }}>{dept.teamsCount}</td>
+                              <td className="py-3 px-3 text-right font-extrabold" style={{ color: 'var(--primary)' }}>{dept.approvedAgents}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </div>
 
-                {deptRanking.length === 0 ? (
-                  <p className="text-sm py-6 text-center italic" style={{ color: 'var(--text-secondary)' }}>No approved agents submitted yet.</p>
-                ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse text-left">
-                      <thead>
-                        <tr className="border-b text-[10px] font-black uppercase tracking-wider" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
-                          <th className="py-2 px-3">Rank</th>
-                          <th className="py-2 px-3">Department</th>
-                          <th className="py-2 px-3 text-right">Teams Active</th>
-                          <th className="py-2 px-3 text-right">Agents Approved</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y text-sm font-semibold divide-slate-100" style={{ color: 'var(--text-primary)' }}>
-                        {deptRanking.map((dept, index) => (
-                          <tr key={dept.department} className="hover:bg-slate-50/50 transition-colors">
-                            <td className="py-3 px-3">
-                              <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
-                                index === 0 
-                                  ? 'bg-amber-100 text-amber-700' 
-                                  : index === 1 
-                                    ? 'bg-slate-200 text-slate-700' 
-                                    : index === 2 
-                                      ? 'bg-amber-50 text-amber-800' 
-                                      : 'bg-slate-100 text-slate-600'
-                              }`}>
-                                {index + 1}
-                              </span>
-                            </td>
-                            <td className="py-3 px-3">{dept.department}</td>
-                            <td className="py-3 px-3 text-right" style={{ color: 'var(--text-secondary)' }}>{dept.teamsCount}</td>
-                            <td className="py-3 px-3 text-right font-extrabold" style={{ color: 'var(--primary)' }}>{dept.approvedAgents}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                {/* Theme Rankings Card */}
+                <div className="glass-card p-6 space-y-4">
+                  <div className="flex items-center space-x-2 border-b pb-3" style={{ borderColor: 'var(--border)' }}>
+                    <Award className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+                    <span className="font-bold text-sm tracking-wide uppercase" style={{ color: 'var(--text-primary)' }}>Theme Standings</span>
                   </div>
-                )}
+
+                  {themeRanking.length === 0 ? (
+                    <p className="text-sm py-6 text-center italic" style={{ color: 'var(--text-secondary)' }}>No approved agents submitted yet.</p>
+                  ) : (
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse text-left">
+                        <thead>
+                          <tr className="border-b text-[10px] font-black uppercase tracking-wider" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
+                            <th className="py-2 px-3">Rank</th>
+                            <th className="py-2 px-3">Theme</th>
+                            <th className="py-2 px-3 text-right">Teams Active</th>
+                            <th className="py-2 px-3 text-right">Agents Approved</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y text-sm font-semibold divide-slate-100" style={{ color: 'var(--text-primary)' }}>
+                          {themeRanking.map((item, index) => (
+                            <tr key={item.theme} className="hover:bg-slate-50/50 transition-colors">
+                              <td className="py-3 px-3">
+                                <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
+                                  index === 0 
+                                    ? 'bg-amber-100 text-amber-700' 
+                                    : index === 1 
+                                      ? 'bg-slate-200 text-slate-700' 
+                                      : index === 2 
+                                        ? 'bg-amber-50 text-amber-800' 
+                                        : 'bg-slate-100 text-slate-600'
+                                }`}>
+                                  {index + 1}
+                                </span>
+                              </td>
+                              <td className="py-3 px-3">{item.theme}</td>
+                              <td className="py-3 px-3 text-right" style={{ color: 'var(--text-secondary)' }}>{item.teamsCount}</td>
+                              <td className="py-3 px-3 text-right font-extrabold" style={{ color: 'var(--primary)' }}>{item.approvedAgents}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+
               </div>
 
               {/* Sidebar: Countdown and Live Activity Stream */}

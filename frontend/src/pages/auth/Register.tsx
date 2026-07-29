@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
-import { Mail, Lock, User, Hash, BookOpen, Layers, Zap, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, User, Hash, BookOpen, Layers, AlertCircle, ArrowLeft } from 'lucide-react';
 import CustomSelect from '../../components/ui/Select';
 
 export default function Register() {
@@ -41,10 +41,10 @@ export default function Register() {
     isSelect?: boolean;
     options?: string[];
   }> = [
-    { label: 'Full Name', icon: <User className="h-4 w-4" />, name: 'name', placeholder: 'John Doe' },
-    { label: 'College Email', icon: <Mail className="h-4 w-4" />, name: 'email', type: 'email', placeholder: 'name@sece.ac.in' },
+    { label: 'Full Name', icon: <User className="h-4 w-4" />, name: 'name', placeholder: 'Enter Name' },
+    { label: 'College Email', icon: <Mail className="h-4 w-4" />, name: 'email', type: 'email', placeholder: 'Enter Official Email' },
     { label: 'Password', icon: <Lock className="h-4 w-4" />, name: 'password', type: 'password', placeholder: 'Minimum 6 characters' },
-    { label: 'Roll Number', icon: <Hash className="h-4 w-4" />, name: 'rollNumber', placeholder: 'e.g. 21CS001' },
+    { label: 'Roll Number', icon: <Hash className="h-4 w-4" />, name: 'rollNumber', placeholder: '23CS001' },
     { 
       label: 'Department', 
       icon: <BookOpen className="h-4 w-4" />, 
@@ -53,7 +53,7 @@ export default function Register() {
       isSelect: true,
       options: ['CSE', 'AIDS', 'AIML', 'IT', 'CYBER', 'CCE', 'CSBS', 'ECE', 'EEE', 'MECH']
     },
-    { label: 'Section', icon: <Layers className="h-4 w-4" />, name: 'section', placeholder: 'e.g. A, B, C' },
+    { label: 'Section', icon: <Layers className="h-4 w-4" />, name: 'section', placeholder: 'A, B, C, D' },
   ];
 
   return (
@@ -76,10 +76,8 @@ export default function Register() {
 
         <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-premium space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-hover))' }}>
-              <Zap className="w-5 h-5 text-white animate-pulse" />
-            </div>
-            <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>AgentVerse 2026</span>
+            <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
+            <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar Market Place</span>
           </div>
 
           <div>
@@ -136,8 +134,6 @@ export default function Register() {
                   value={formData.year}
                   onChange={val => setFormData({ ...formData, year: val })}
                   options={[
-                    { value: '1', label: '1st Year' },
-                    { value: '2', label: '2nd Year' },
                     { value: '3', label: '3rd Year' },
                     { value: '4', label: '4th Year' }
                   ]}

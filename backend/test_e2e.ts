@@ -102,7 +102,7 @@ async function runTests() {
   console.log('\n6. Submit Agent');
   res = await request('/agents', 'POST', {
     agentName: 'Test Agent',
-    theme: 'Autonomous AI',
+    theme: 'Smart Campus',
     shortDescription: 'This is a test agent that does something cool and has at least fifty characters of text content.',
     githubUrl: 'https://github.com/test/test',
     liveDemoUrl: 'https://test.com',

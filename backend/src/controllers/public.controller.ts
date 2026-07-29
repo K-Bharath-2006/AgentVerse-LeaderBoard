@@ -65,19 +65,63 @@ export const getDepartmentRanking = async (req: Request, res: Response, next: Ne
   }
 };
 
+export const getThemeRanking = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const agents = await Agent.find({ status: 'approved' });
+    
+    const themeMap: Record<string, { approvedAgents: number, teams: Set<string> }> = {};
+
+    agents.forEach(agent => {
+      const theme = agent.theme || 'Unknown';
+      
+      if (!themeMap[theme]) {
+        themeMap[theme] = { approvedAgents: 0, teams: new Set() };
+      }
+      
+      const record = themeMap[theme];
+      if (record) {
+        record.approvedAgents += 1;
+        if (agent.teamId) {
+          record.teams.add(agent.teamId.toString());
+        }
+      }
+    });
+
+    const ranking = Object.entries(themeMap).map(([theme, record]) => ({
+      theme,
+      approvedAgents: record.approvedAgents,
+      teamsCount: record.teams.size,
+    })).sort((a, b) => b.approvedAgents - a.approvedAgents);
+
+    res.status(200).json(ranking);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getLeaderboard = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { department, section, top10 } = req.query;
+    const { department, section, theme, top10 } = req.query;
 
     let teamQuery: any = {};
     if (department) teamQuery.department = department;
     if (section) teamQuery.section = section;
 
+    let targetAgentQuery: any = { status: 'approved' };
+    if (theme) {
+      targetAgentQuery.theme = theme;
+      
+      // Get all team IDs that have approved agents under this theme
+      const themeAgents = await Agent.find(targetAgentQuery);
+      const teamIds = themeAgents.map(a => a.teamId);
+      teamQuery._id = { $in: teamIds };
+    }
+
     const teams = await Team.find(teamQuery);
     
     // Aggregate scores
     const scores = await JuryScore.find();
-    const agents = await Agent.find({ status: 'approved' });
+    const agents = await Agent.find(targetAgentQuery);
 
     const leaderboard = teams.map(team => {
       const teamScores = scores.filter(s => s.teamId.toString() === team._id.toString());

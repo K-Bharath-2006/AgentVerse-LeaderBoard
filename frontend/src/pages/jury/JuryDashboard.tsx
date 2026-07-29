@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
 import api from '../../api/axios';
 import { 
-  Search, BookOpen, Lock, Star, LogOut, Zap, 
+  Search, BookOpen, Lock, Star, LogOut, 
   ChevronLeft, Users, CheckCircle, XCircle, Clock, Award
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
@@ -83,11 +83,9 @@ export default function JuryDashboard() {
       {/* ── Navbar ── */}
       <nav className="navbar px-6 py-3 flex justify-between items-center flex-shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>
-            <Zap className="w-5 h-5 text-white" />
-          </div>
+          <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
           <div>
-            <p className="font-black text-sm" style={{ color: 'var(--text-primary)' }}>AgentVerse 2026</p>
+            <p className="font-black text-sm" style={{ color: 'var(--text-primary)' }}>Sri Eshwar Market Place</p>
             <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Jury Evaluation Portal</p>
           </div>
         </div>
@@ -308,6 +306,7 @@ export default function JuryDashboard() {
                           <a href={agent.githubUrl} target="_blank" rel="noreferrer" className="text-xs font-bold hover:underline" style={{ color: '#818cf8' }}>GitHub ↗</a>
                           {agent.liveDemoUrl && <a href={agent.liveDemoUrl} target="_blank" rel="noreferrer" className="text-xs font-bold hover:underline" style={{ color: '#34d399' }}>Live Demo ↗</a>}
                           {agent.videoDemoUrl && <a href={agent.videoDemoUrl} target="_blank" rel="noreferrer" className="text-xs font-bold hover:underline" style={{ color: '#f59e0b' }}>Video ↗</a>}
+                          {agent.documentationUrl && <a href={agent.documentationUrl} target="_blank" rel="noreferrer" className="text-xs font-bold hover:underline" style={{ color: '#a78bfa' }}>Docs ↗</a>}
                         </div>
 
                         <div className="flex gap-2 mt-4 justify-end">

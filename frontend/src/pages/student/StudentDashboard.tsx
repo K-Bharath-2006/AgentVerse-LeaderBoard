@@ -260,7 +260,7 @@ export default function StudentDashboard() {
         <div className="flex items-center gap-3">
           <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
           <div>
-            <p className="font-black text-sm" style={{ color: 'var(--text-primary)' }}>Sri Eshwar Market Place</p>
+            <p className="font-black text-sm" style={{ color: 'var(--text-primary)' }}>Sri Eshwar AI Agent Store</p>
             <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Student Portal</p>
           </div>
         </div>

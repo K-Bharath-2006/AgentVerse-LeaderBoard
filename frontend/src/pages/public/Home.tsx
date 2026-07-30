@@ -59,7 +59,7 @@ export default function Home() {
       <nav className="navbar px-6 py-4 flex justify-between items-center relative z-10">
         <div className="flex items-center gap-3">
           <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
-          <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar Market Place</span>
+          <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar AI Agent Store</span>
         </div>
         <div className="flex items-center gap-6">
           <Link to="/" className="text-sm font-semibold transition-colors hover:text-[var(--primary)]" style={{ color: 'var(--text-secondary)' }}>Home</Link>
@@ -91,7 +91,7 @@ export default function Home() {
 
                 <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Space Grotesk', sans-serif" }}>
                   Sri Eshwar<br />
-                  <span className="gradient-text-blue">Market Place</span>
+                  <span className="gradient-text-blue">AI Agent Store</span>
                 </h1>
 
                 <p className="mt-6 text-base md:text-lg leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>

@@ -76,7 +76,7 @@ export default function Leaderboard() {
       <nav className="navbar px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
-          <span className="text-xl font-black gradient-text">Sri Eshwar Market Place</span>
+          <span className="text-xl font-black gradient-text">Sri Eshwar AI Agent Store</span>
         </div>
         <div className="flex items-center gap-6">
           <RouterLink to="/" className="text-sm font-semibold hover:text-indigo-400 transition-colors" style={{ color: 'var(--text-secondary)' }}>Home</RouterLink>

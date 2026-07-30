@@ -356,7 +356,7 @@ export default function AdminDashboard() {
         <div className="flex items-center space-x-3">
           <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
           <div className="flex flex-col">
-            <span className="text-sm font-black text-slate-900">Sri Eshwar Market Place</span>
+            <span className="text-sm font-black text-slate-900">Sri Eshwar AI Agent Store</span>
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Admin Control Center</span>
           </div>
         </div>
@@ -454,7 +454,7 @@ export default function AdminDashboard() {
                     </div>
 
                     <h2 className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Space Grotesk', sans-serif" }}>
-                      Sri Eshwar Market Place
+                      Sri Eshwar AI Agent Store
                     </h2>
                     
                     <p className="text-xs max-w-lg mx-auto" style={{ color: 'var(--text-secondary)' }}>

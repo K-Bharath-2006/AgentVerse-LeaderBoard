@@ -119,7 +119,7 @@ export default function Dashboard() {
       <nav className="navbar px-6 py-4 flex justify-between items-center relative z-10">
         <div className="flex items-center gap-3">
           <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
-          <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar Market Place</span>
+          <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar AI Agent Store</span>
         </div>
         <div className="flex items-center gap-6">
           <Link to="/" className="text-sm font-semibold transition-colors hover:text-[var(--primary)]" style={{ color: 'var(--text-secondary)' }}>Home</Link>

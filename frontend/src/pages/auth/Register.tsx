@@ -86,7 +86,7 @@ export default function Register() {
         <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-premium space-y-6">
           <div className="flex items-center gap-3">
             <img src="/logo.png" className="w-9 h-9 object-contain" alt="Sri Eshwar Logo" />
-            <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar Market Place</span>
+            <span className="text-xl font-black gradient-text-blue" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Sri Eshwar AI Agent Store</span>
           </div>
 
           <div>

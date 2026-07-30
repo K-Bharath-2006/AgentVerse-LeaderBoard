@@ -20,7 +20,7 @@ export const getPublicDashboard = async (req: Request, res: Response, next: Next
 
     res.status(200).json({
       approvedAgents,
-      departments: departmentsCount,
+      departments: 10,
       students,
       teams,
       juries,

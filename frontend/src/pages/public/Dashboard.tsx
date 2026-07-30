@@ -34,7 +34,7 @@ export default function Dashboard() {
   const { socket } = useSocket();
   const [stats, setStats] = useState({
     approvedAgents: 0,
-    departments: 0,
+    departments: 10,
     students: 0,
     teams: 0,
     juries: 0

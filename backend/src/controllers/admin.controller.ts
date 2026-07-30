@@ -310,7 +310,8 @@ export const getEvent = async (req: Request, res: Response, next: NextFunction) 
       event = await Event.create({
         startDate: new Date('2026-07-29T09:00:00.000Z'),
         endDate: new Date('2026-07-31T16:00:00.000Z'),
-        isStarted: false
+        isStarted: false,
+        targetAgents: 3000
       });
     }
     res.status(200).json(event);
@@ -349,6 +350,7 @@ export const startEvent = async (req: Request, res: Response, next: NextFunction
         endDate: new Date('2026-07-31T16:00:00.000Z'),
         isStarted: true,
         startedAt: new Date(),
+        targetAgents: 3000
       });
     } else {
       event.isStarted = true;

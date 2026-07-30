@@ -14,7 +14,7 @@ export default function Home() {
     students: 0,
     teams: 0,
   });
-  const [targetAgents, setTargetAgents] = useState(2000);
+  const [targetAgents, setTargetAgents] = useState(3000);
 
   const fetchStats = async () => {
     try {
@@ -23,7 +23,7 @@ export default function Home() {
         api.get('/public/event')
       ]);
       setStats(statsRes.data);
-      if (eventRes.data) setTargetAgents(eventRes.data.targetAgents || 2000);
+      if (eventRes.data) setTargetAgents(eventRes.data.targetAgents || 3000);
     } catch (err) {
       console.error(err);
     }

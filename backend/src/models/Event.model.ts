@@ -16,7 +16,7 @@ const eventSchema = new Schema<IEvent>(
     endDate: { type: Date, required: true },
     isStarted: { type: Boolean, default: false },
     startedAt: { type: Date },
-    targetAgents: { type: Number, default: 2000 },
+    targetAgents: { type: Number, default: 3000 },
   },
   { timestamps: true }
 );

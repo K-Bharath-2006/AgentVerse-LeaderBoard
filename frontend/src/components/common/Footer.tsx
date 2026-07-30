@@ -6,7 +6,7 @@ export default function Footer() {
           <span style={{ color: 'var(--text-muted)' }}>&copy; {new Date().getFullYear()} Sri Eshwar College of Engineering. All rights reserved.</span>
         </div>
         <div className="flex flex-col items-center md:items-end gap-1">
-          <p className="tracking-widest text-[9px] uppercase font-black" style={{ color: 'var(--primary)' }}>Design & Developed by</p>
+          <p className="tracking-widest text-[9px] uppercase font-black" style={{ color: 'var(--primary)' }}>Designed & Developed by</p>
           <div className="flex flex-wrap justify-center md:justify-end gap-x-2 gap-y-0.5 text-xs">
             <span className="font-extrabold" style={{ color: 'var(--text-primary)' }}>R.Giridharan, AP/CSE</span>
             <span style={{ color: 'var(--text-muted)' }}>•</span>

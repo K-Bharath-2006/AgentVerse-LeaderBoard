@@ -39,7 +39,7 @@ export default function Dashboard() {
     teams: 0,
     juries: 0
   });
-  const [targetAgents, setTargetAgents] = useState(2000);
+  const [targetAgents, setTargetAgents] = useState(3000);
   const [deptRanking, setDeptRanking] = useState<DeptStat[]>([]);
   const [themeRanking, setThemeRanking] = useState<ThemeStat[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -58,7 +58,7 @@ export default function Dashboard() {
       
       setStats(statsRes.data);
       if (eventRes.data) {
-        setTargetAgents(eventRes.data.targetAgents || 2000);
+        setTargetAgents(eventRes.data.targetAgents || 3000);
       }
       setDeptRanking(deptsRes.data);
       setThemeRanking(themesRes.data);

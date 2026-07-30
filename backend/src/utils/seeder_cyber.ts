@@ -5,7 +5,7 @@ import { env } from '../config/env';
 
 // Only the new CYBER Section A entries for both batches
 const newJuries = [
-  { batch: '23-27', year: '4', dep: 'CYBER', sec: 'A' }, // 4th Year
+  { batch: '24-28', year: '3', dep: 'CYBER', sec: 'A' }, // 3rd Year
 ];
 
 const seedCyber = async () => {

@@ -238,7 +238,7 @@ export const getTeamsAdmin = async (req: Request, res: Response, next: NextFunct
 // --- Agent Management ---
 export const getAllAgentsAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const agents = await Agent.find().populate('teamId', 'name department');
+    const agents = await Agent.find().populate('teamId', 'name department section');
     res.status(200).json(agents);
   } catch (error) {
     next(error);

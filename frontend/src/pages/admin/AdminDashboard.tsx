@@ -30,11 +30,15 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   // Active Tab
-  const [activeTab, setActiveTab] = useState<'analytics' | 'students' | 'teams' | 'reports' | 'event'>('analytics');
+  const [activeTab, setActiveTab] = useState<'analytics' | 'students' | 'teams' | 'reports' | 'event' | 'submissions'>('analytics');
 
   // Common Data State
   const [analytics, setAnalytics] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [agentsList, setAgentsList] = useState<any[]>([]);
+  const [agentDeptFilter, setAgentDeptFilter] = useState('');
+  const [agentSecFilter, setAgentSecFilter] = useState('');
+  const [expandedAgentId, setExpandedAgentId] = useState<string | null>(null);
 
   // Student Management State
   const [studentsData, setStudentsData] = useState<{ students: any[], total: number, page: number, pages: number }>({ students: [], total: 0, page: 1, pages: 1 });
@@ -121,6 +125,15 @@ export default function AdminDashboard() {
     }
   };
 
+  const fetchAgents = async () => {
+    try {
+      const { data } = await api.get('/admin/agents');
+      setAgentsList(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const fetchStudents = async () => {
     try {
       const { data } = await api.get(`/admin/students?page=${studentPage}&search=${studentSearch}&department=${studentDept}&section=${studentSec}`);
@@ -170,7 +183,8 @@ export default function AdminDashboard() {
       fetchStudents(),
       fetchTeams(),
       fetchEvent(),
-      fetchOverallReport()
+      fetchOverallReport(),
+      fetchAgents()
     ]);
     setLoading(false);
   };
@@ -405,6 +419,15 @@ export default function AdminDashboard() {
             }`}
           >
             <Layers className="w-4 h-4" /> Team Management
+          </button>
+
+          <button 
+            onClick={() => setActiveTab('submissions')} 
+            className={`w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${
+              activeTab === 'submissions' ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            <Clock className="w-4 h-4" /> Submission Status
           </button>
 
           <button 
@@ -957,6 +980,186 @@ export default function AdminDashboard() {
                     </button>
                   )}
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 7: Submission Status */}
+          {activeTab === 'submissions' && (
+            <div className="space-y-6 animate-in">
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-premium space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 gap-4">
+                  <div>
+                    <h2 className="text-lg font-black text-slate-900">Agent Submission Status</h2>
+                    <p className="text-slate-500 text-xs mt-0.5 font-semibold">Filter, monitor, and view detailed metrics for all AI Agent submissions.</p>
+                  </div>
+                  
+                  {/* Filters */}
+                  <div className="flex gap-2 items-center w-full sm:w-auto">
+                    <CustomSelect
+                      value={agentDeptFilter}
+                      onChange={val => setAgentDeptFilter(val)}
+                      options={[{ value: '', label: 'All Depts' }, ...departments.map(d => ({ value: d, label: d }))]}
+                      className="w-36"
+                    />
+                    <CustomSelect
+                      value={agentSecFilter}
+                      onChange={val => setAgentSecFilter(val)}
+                      options={[{ value: '', label: 'All Secs' }, ...sections.map(s => ({ value: s, label: s }))]}
+                      className="w-36"
+                    />
+                  </div>
+                </div>
+
+                {(() => {
+                  const filtered = agentsList.filter(agent => {
+                    const team = agent.teamId;
+                    const matchDept = !agentDeptFilter || (team && team.department === agentDeptFilter);
+                    const matchSec = !agentSecFilter || (team && team.section === agentSecFilter);
+                    return matchDept && matchSec;
+                  });
+                  const total = filtered.length;
+                  const approved = filtered.filter(a => a.status === 'approved').length;
+                  const rejected = filtered.filter(a => a.status === 'rejected').length;
+                  const pending = filtered.filter(a => a.status === 'submitted').length;
+
+                  return (
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-200/60 shadow-premium flex flex-col justify-between h-28 card-hover">
+                          <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Total Submissions</span>
+                          <div className="text-3xl font-black text-slate-900">{total}</div>
+                        </div>
+                        <div className="bg-emerald-50/20 p-5 rounded-2xl border border-emerald-100 shadow-premium flex flex-col justify-between h-28 card-hover">
+                          <span className="text-[10px] text-emerald-600 font-extrabold uppercase tracking-wider font-black">Total Approved</span>
+                          <div className="text-3xl font-black text-emerald-600">{approved}</div>
+                        </div>
+                        <div className="bg-rose-50/20 p-5 rounded-2xl border border-rose-100 shadow-premium flex flex-col justify-between h-28 card-hover">
+                          <span className="text-[10px] text-rose-600 font-extrabold uppercase tracking-wider font-black">Total Rejected</span>
+                          <div className="text-3xl font-black text-rose-600">{rejected}</div>
+                        </div>
+                        <div className="bg-amber-50/20 p-5 rounded-2xl border border-amber-100 shadow-premium flex flex-col justify-between h-28 card-hover">
+                          <span className="text-[10px] text-amber-600 font-extrabold uppercase tracking-wider font-black">Pending Evaluation</span>
+                          <div className="text-3xl font-black text-amber-600">{pending}</div>
+                        </div>
+                      </div>
+
+                      {/* Submissions Detail List */}
+                      <div className="overflow-x-auto">
+                        <table className="w-full border-collapse text-left">
+                          <thead>
+                            <tr className="border-b text-[10px] font-black uppercase tracking-wider" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
+                              <th className="py-2.5 px-3">Agent Name</th>
+                              <th className="py-2.5 px-3">Team Name</th>
+                              <th className="py-2.5 px-3">Dept</th>
+                              <th className="py-2.5 px-3">Sec</th>
+                              <th className="py-2.5 px-3">Theme</th>
+                              <th className="py-2.5 px-3 text-center">Status</th>
+                              <th className="py-2.5 px-3 text-right">Details</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y text-xs font-semibold divide-slate-100" style={{ color: 'var(--text-primary)' }}>
+                            {filtered.length === 0 ? (
+                              <tr>
+                                <td colSpan={7} className="py-8 text-center text-slate-400 italic">No submissions matching the selected filters.</td>
+                              </tr>
+                            ) : (
+                              filtered.map(agent => {
+                                const isExpanded = expandedAgentId === agent._id;
+                                return (
+                                  <>
+                                    <tr key={agent._id} className="hover:bg-slate-50/50 transition-colors">
+                                      <td className="py-3.5 px-3 font-bold text-slate-800">{agent.agentName}</td>
+                                      <td className="py-3.5 px-3 text-slate-500">{agent.teamName}</td>
+                                      <td className="py-3.5 px-3 text-slate-500">{agent.teamId?.department || 'N/A'}</td>
+                                      <td className="py-3.5 px-3 text-slate-500">{agent.teamId?.section || 'N/A'}</td>
+                                      <td className="py-3.5 px-3 text-slate-500">{agent.theme}</td>
+                                      <td className="py-3.5 px-3 text-center">
+                                        <span className={`inline-block px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-wider ${
+                                          agent.status === 'approved' 
+                                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-150' 
+                                            : agent.status === 'rejected'
+                                              ? 'bg-rose-50 text-rose-700 border border-rose-150'
+                                              : 'bg-amber-50 text-amber-700 border border-amber-150'
+                                        }`}>
+                                          {agent.status}
+                                        </span>
+                                      </td>
+                                      <td className="py-3.5 px-3 text-right">
+                                        <button 
+                                          onClick={() => setExpandedAgentId(isExpanded ? null : agent._id)}
+                                          className="text-blue-600 hover:text-blue-700 font-bold transition-colors cursor-pointer"
+                                        >
+                                          {isExpanded ? 'Hide ▲' : 'View ▼'}
+                                        </button>
+                                      </td>
+                                    </tr>
+
+                                    {/* Expandable Details Drawer */}
+                                    {isExpanded && (
+                                      <tr key={`${agent._id}-details`}>
+                                        <td colSpan={7} className="bg-slate-50/50 p-4 border border-slate-100 rounded-xl">
+                                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
+                                            <div className="space-y-2">
+                                              <div>
+                                                <span className="text-slate-400 font-bold uppercase text-[9px]">Faculty Mentor:</span>
+                                                <p className="text-slate-700 mt-0.5">{agent.facultyMentor || 'None Specified'}</p>
+                                              </div>
+                                              <div>
+                                                <span className="text-slate-400 font-bold uppercase text-[9px]">LLM Used:</span>
+                                                <p className="text-slate-700 mt-0.5">{agent.llmUsed || 'None'}</p>
+                                              </div>
+                                              <div>
+                                                <span className="text-slate-400 font-bold uppercase text-[9px]">Framework:</span>
+                                                <p className="text-slate-700 mt-0.5">{agent.framework || 'None'}</p>
+                                              </div>
+                                              <div>
+                                                <span className="text-slate-400 font-bold uppercase text-[9px]">Tech Stack:</span>
+                                                <p className="text-slate-700 mt-0.5">{Array.isArray(agent.techStack) ? agent.techStack.join(', ') : agent.techStack}</p>
+                                              </div>
+                                            </div>
+                                            <div className="space-y-3">
+                                              <div className="flex flex-wrap gap-2">
+                                                {agent.githubUrl && (
+                                                  <a href={agent.githubUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-blue-600 hover:underline">
+                                                    💻 GitHub URL ↗
+                                                  </a>
+                                                )}
+                                                {agent.liveDemoUrl && (
+                                                  <a href={agent.liveDemoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-emerald-600 hover:underline">
+                                                    🚀 Live Demo ↗
+                                                  </a>
+                                                )}
+                                                {agent.videoDemoUrl && (
+                                                  <a href={agent.videoDemoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-amber-600 hover:underline">
+                                                    🎥 Video Demo ↗
+                                                  </a>
+                                                )}
+                                                {agent.documentationUrl && (
+                                                  <a href={agent.documentationUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-purple-600 hover:underline">
+                                                    📄 Docs URL ↗
+                                                  </a>
+                                                )}
+                                              </div>
+                                              <div>
+                                                <span className="text-slate-400 font-bold uppercase text-[9px]">Short Description:</span>
+                                                <p className="text-slate-600 mt-1 leading-relaxed whitespace-pre-wrap">{agent.shortDescription || 'No description provided.'}</p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    )}
+                                  </>
+                                );
+                              })
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           )}

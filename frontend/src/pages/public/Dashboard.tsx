@@ -246,7 +246,7 @@ export default function Dashboard() {
                     <ShieldCheck className="w-5 h-5" style={{ color: 'var(--success)' }} />
                   </div>
                   <div>
-                    <div className="text-2xl font-black" style={{ color: 'var(--text-primary)' }}>{stats.juries || 60}</div>
+                    <div className="text-2xl font-black" style={{ color: 'var(--text-primary)' }}>60</div>
                     <div className="text-[10px] uppercase font-extrabold tracking-wider mt-0.5" style={{ color: 'var(--text-secondary)' }}>Jury Panel</div>
                   </div>
                 </div>

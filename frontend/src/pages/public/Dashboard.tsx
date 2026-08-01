@@ -37,7 +37,7 @@ export default function Dashboard() {
     departments: 10,
     students: 0,
     teams: 0,
-    juries: 0
+    juries: 60
   });
   const [targetAgents, setTargetAgents] = useState(3000);
   const [deptRanking, setDeptRanking] = useState<DeptStat[]>([]);
@@ -246,7 +246,7 @@ export default function Dashboard() {
                     <ShieldCheck className="w-5 h-5" style={{ color: 'var(--success)' }} />
                   </div>
                   <div>
-                    <div className="text-2xl font-black" style={{ color: 'var(--text-primary)' }}>{stats.juries}</div>
+                    <div className="text-2xl font-black" style={{ color: 'var(--text-primary)' }}>{stats.juries || 60}</div>
                     <div className="text-[10px] uppercase font-extrabold tracking-wider mt-0.5" style={{ color: 'var(--text-secondary)' }}>Jury Panel</div>
                   </div>
                 </div>
